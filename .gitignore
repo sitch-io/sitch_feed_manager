@@ -1,0 +1,4 @@
+*.pyc
+*.gz
+sitch/test/.cache
+sitch/test/unit/__pycache__
