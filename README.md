@@ -1,4 +1,4 @@
-# Sitch feed manager
+# SITCH feed manager
 
 ## Retrieves OpenCellID DB and parses out into MCC-specific files.  Publishes feed files on AWS S3.
 
