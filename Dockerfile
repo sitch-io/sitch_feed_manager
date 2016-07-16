@@ -7,6 +7,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y\
 
 RUN pip install requests
 RUN pip install boto3
+RUN pip install twilio
 
 COPY sitch/ /app/sitch
 

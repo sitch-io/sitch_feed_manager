@@ -11,33 +11,38 @@ class OutfileHandler(object):
 
     def start_mcc_file(self, radio, mcc, data):
         dir_name = os.path.join(self.base_path, radio, mcc)
-        file_name = os.path.join(dir_name, "all.csv.gz")
-        temp_file_name = os.path.join(dir_name, "all.csv.gz.temp")
+        file_name = os.path.join(dir_name, "all.csv")
+        # temp_file_name = os.path.join(dir_name, "all.csv.gz.temp")
         field_names = ["radio", "mcc", "net", "area", "cell", "unit", "lon",
                        "lat", "range", "samples", "changeable", "created",
-                       "updated", "averageSignal"]
+                       "updated", "averageSignal", "carrier"]
         self.ensure_path_exists(dir_name)
-        with gzip.open(temp_file_name, 'w') as outfile:
+        print "Starting a new file for MCC %s" % mcc
+        with open(file_name, 'w') as outfile:
             producer = csv.DictWriter(outfile, fieldnames=field_names)
             producer.writeheader()
             for row in data:
                 producer.writerow(row)
-        os.rename(temp_file_name, file_name)
+        # os.rename(temp_file_name, file_name)
         return file_name
 
     def append_mcc_file(self, radio, mcc, data):
         dir_name = os.path.join(self.base_path, radio, mcc)
-        file_name = os.path.join(dir_name, "all.csv.gz")
-        temp_file_name = os.path.join(dir_name, "all.csv.gz.temp")
+        # file_name = os.path.join(dir_name, "all.csv.gz")
+        file_name = os.path.join(dir_name, "all.csv")
         field_names = ["radio", "mcc", "net", "area", "cell", "unit", "lon",
                        "lat", "range", "samples", "changeable", "created",
-                       "updated", "averageSignal"]
+                       "updated", "averageSignal", "carrier"]
         self.ensure_path_exists(dir_name)
-        with gzip.open(temp_file_name, 'a') as outfile:
+        with open(file_name, 'a') as outfile:
             producer = csv.DictWriter(outfile, fieldnames=field_names)
             for row in data:
-                producer.writerow(row)
-        os.rename(temp_file_name, file_name)
+                try:
+                    producer.writerow(row)
+                except ValueError as e:
+                    print "ValueError!"
+                    print str(row)
+        # os.rename(temp_file_name, file_name)
         return file_name
 
     @classmethod

@@ -9,6 +9,9 @@
         OCID_KEY       # API key for OpenCellID DB
         BUCKET_NAME    # S3 Bucket name for feed files
         BASE_PATH      # Local path for storing parsed files, before uploading to S3.  Don't pick a ramdisk.
+        TWILIO_SID     # API Key
+        TWILIO_TOKEN   # API Token
+        ISO_COUNTRY    # Used for getting carrier info from Twilio
 
 
 ### Recommended operation:
@@ -22,4 +25,7 @@
 -e BUCKET_NAME=MyBucketName \
 -e OCID_KEY=$OPEN_CELL_ID_KEY \
 -e BASE_PATH=/opt/basepath \
+-e TWILIO_SID=$TWILIO_SID \
+-e TWILIO_TOKEN=$TWILIO_TOKEN \
+-e ISO_COUNTRY=$ISO_COUNTRY
 feedmanager`
